@@ -11,23 +11,22 @@
         android:theme="@style/Theme.Desafio4Firebase">
 
         <activity android:name=".ui.NewAccountActivity" />
-        <activity android:name=".ui.LoginActivity">
+        <activity android:name=".ui.LoginActivity" />
+        <activity android:name=".ui.AddGameActivity" />
+        <activity android:name=".ui.GameDetailsActivity" />
+        <activity android:name=".ui.MainActivity" />
+        <activity android:name=".ui.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.AddGameActivity" />
-        <activity android:name=".ui.GameDetailsActivity" />
-        <activity android:name=".ui.MainActivity" />
 
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
