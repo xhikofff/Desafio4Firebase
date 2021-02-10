@@ -65,14 +65,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         bind.buttonAddGame.setOnClickListener {
-            startActivity(Intent(this, AddEditGameActivity::class.java))
+            startActivity(Intent(this, AddGameActivity::class.java))
         }
     }
 
     override fun onResume() {
         super.onResume()
-
         mainViewModel.getAllGames()
+        bind.searchViewGames.setQuery("", false)
+        bind.searchViewGames.clearFocus()
     }
 
     private fun filterGames(filterText: String) {

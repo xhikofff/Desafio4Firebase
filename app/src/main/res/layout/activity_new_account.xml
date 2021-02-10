@@ -5,18 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/splash"
-    tools:context=".ui.AddGameActivity">
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/buttonAddImage"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:layout_marginBottom="264dp"
-        android:backgroundTint="@color/red"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_baseline_photo_camera_24" />
+    tools:context=".ui.NewAccountActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -25,6 +14,7 @@
         android:layout_margin="16dp"
         android:background="@drawable/pill_shape"
         android:backgroundTint="@color/white"
+        android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,14 +25,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
-            android:layout_marginTop="44dp"
+            android:layout_marginTop="24dp"
             android:textColorHint="@color/grey_darker"
             app:boxBackgroundColor="@color/white"
             app:boxStrokeColor="@color/red"
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputName"
+                android:id="@+id/inputUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/game_name"
@@ -62,10 +52,30 @@
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputReleaseDate"
+                android:id="@+id/inputEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/created"
+                android:hint="@string/email"
+                android:inputType="text"
+                android:lines="1"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="16dp"
+            android:textColorHint="@color/grey_darker"
+            app:boxBackgroundColor="@color/white"
+            app:boxStrokeColor="@color/red"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
                 android:inputType="number"
                 android:lines="1"
                 android:textColor="@color/black" />
@@ -82,36 +92,26 @@
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputDescription"
+                android:id="@+id/inputConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/description"
-                android:inputType="textMultiLine"
+                android:hint="@string/confirm_password"
+                android:inputType="number"
+                android:lines="1"
                 android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/buttonSaveGame"
+            android:id="@+id/buttonCreateAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
             android:backgroundTint="@color/red"
-            android:text="@string/save_game"
-            android:textAllCaps="true"
+            android:text="@string/create_account"
             android:textColor="@color/white" />
 
-        <Button
-            android:id="@+id/buttonDeleteGame"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginBottom="15dp"
-            android:backgroundTint="@color/red"
-            android:text="@string/delete_game"
-            android:textColor="@color/white"
-            android:visibility="gone" />
-
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

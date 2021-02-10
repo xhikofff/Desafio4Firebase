@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "862461101426",
+    "project_id": "fir-storage-b1d3b",
+    "storage_bucket": "fir-storage-b1d3b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:862461101426:android:8650ed42546a8df93949eb",
+        "android_client_info": {
+          "package_name": "com.kaiodonadelli.desafio4firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "862461101426-j7p2g3309etk08936d1f28e5e421cq3l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEdsV27G62UCt_JMJU7FLVSd0ILdwO7dk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "862461101426-j7p2g3309etk08936d1f28e5e421cq3l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

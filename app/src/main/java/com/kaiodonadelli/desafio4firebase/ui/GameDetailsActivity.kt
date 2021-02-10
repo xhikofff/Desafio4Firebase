@@ -26,7 +26,7 @@ class GameDetailsActivity : AppCompatActivity() {
         bind.textViewTitle.text = game.name
         bind.textViewGameName.text = game.name
         bind.textViewReleaseDate.text = getString(R.string.game_release).format(game.releaseDate)
-        bind.tvGameDescription.text = game.description
+        bind.textViewDescription.text = game.description
 
         Picasso.get()
             .load(game.imageUrl)
@@ -35,7 +35,7 @@ class GameDetailsActivity : AppCompatActivity() {
             .into(bind.imageViewHero)
 
         bind.buttonEdit.setOnClickListener {
-            startActivity(Intent(this, AddEditGameActivity::class.java).apply {
+            startActivity(Intent(this, AddGameActivity::class.java).apply {
                 putExtra("game", game)
             })
             finish()
