@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.kaiodonadelli.desafio4firebase.databinding.ActivityAddGameBinding
 import com.kaiodonadelli.desafio4firebase.domain.Game
@@ -35,6 +36,7 @@ class AddGameActivity : AppCompatActivity() {
     private lateinit var alertDialog: AlertDialog
 
     private var gameId: String = ""
+    private var gameImageId: String = ""
     private var gameImageUrl: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,17 +46,25 @@ class AddGameActivity : AppCompatActivity() {
 
         alertDialog = SpotsDialog.Builder().setContext(this).build()
 
-        (intent.getSerializableExtra("game") as Game?)?.let {
-            bind.inputName.setText(it.name)
-            bind.inputReleaseDate.setText(it.releaseDate)
-            bind.inputDescription.setText(it.description)
+        (intent.getSerializableExtra("game") as Game?)?.let { game ->
+            bind.inputName.setText(game.name)
+            bind.inputReleaseDate.setText(game.releaseDate)
+            bind.inputDescription.setText(game.description)
 
             Picasso.get()
-                .load(it.imageUrl)
+                .load(game.imageUrl)
+                .resize(400, 400)
+                .centerCrop()
                 .into(bind.buttonAddImage)
 
-            gameId = it.id
-            gameImageUrl = it.imageUrl
+            gameId = game.id
+            gameImageId = game.imageId
+            gameImageUrl = game.imageUrl
+
+            bind.buttonDeleteGame.visibility = View.VISIBLE
+            bind.buttonDeleteGame.setOnClickListener {
+                addGameViewModel.deleteGame(game)
+            }
         }
 
         bind.buttonAddImage.setOnClickListener {
@@ -69,12 +79,15 @@ class AddGameActivity : AppCompatActivity() {
             if (gameName == "" || gameRelease == "" || gameDescription == "" || gameImageUrl == "") {
                 Toast.makeText(
                     this,
-                    "Please, fill all information about the game!",
+                    "Please fill the required fields.",
                     Toast.LENGTH_SHORT
                 ).show()
+                return@setOnClickListener
             }
 
-            val game = Game(gameName, "iuhsaydb", gameImageUrl, gameRelease, gameDescription)
+            val game =
+                Game(gameName, "test", gameImageId, gameImageUrl, gameRelease, gameDescription)
+
             if (gameId != "") {
                 game.id = gameId
                 addGameViewModel.updateGame(game)
@@ -96,24 +109,31 @@ class AddGameActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        val storageReference = FirebaseStorage.getInstance().getReference(Date().toString())
+        if (gameImageId == "") {
+            gameImageId = UUID.randomUUID().toString()
+        } else {
+            Picasso.get().invalidate(gameImageUrl)
+        }
+
+        val storageReference = FirebaseStorage.getInstance().getReference(gameImageId)
 
         if (requestCode == IMAGE_CODE) {
             alertDialog.show()
             val uploadTask = storageReference.putFile(data!!.data!!)
             uploadTask.continueWithTask { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(this, "Uploading...", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Uploading", Toast.LENGTH_SHORT).show()
                 }
                 storageReference.downloadUrl
 
             }.addOnSuccessListener {
                 val url = it.toString().substring(0, it.toString().indexOf("&token"))
 
-                Log.i("URL referência ", url)
                 alertDialog.dismiss()
                 Picasso.get()
                     .load(url)
+                    .resize(400, 400)
+                    .centerCrop()
                     .into(bind.buttonAddImage)
 
                 gameImageUrl = url
@@ -121,7 +141,8 @@ class AddGameActivity : AppCompatActivity() {
             }.addOnFailureListener {
                 Log.e("Erro no upload", it.toString())
                 alertDialog.dismiss()
-                Toast.makeText(this, "Image upload failed. Please try again.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Image upload failed. Please try again.", Toast.LENGTH_LONG)
+                    .show()
             }
         }
     }

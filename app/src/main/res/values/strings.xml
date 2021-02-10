@@ -2,6 +2,7 @@
     <string name="app_name">Desafio4Firebase</string>
     <string name="game_release">Lançamento: </string>
     <string name="add_game">Add game</string>
+    <string name="delete_game">Delete game</string>
     <string name="add_image">Add image</string>
     <string name="game_name">Name</string>
     <string name="created">Created at</string>
