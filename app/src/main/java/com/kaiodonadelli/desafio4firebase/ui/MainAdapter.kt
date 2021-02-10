@@ -40,6 +40,7 @@ class MainAdapter(
         Picasso.with(context)
             .load(game.imageUrl)
             .centerCrop()
+            .resize(175, 100)
             .into(holder.imageViewGame)
 
         holder.textViewName.text = game.name
@@ -51,4 +52,9 @@ class MainAdapter(
     }
 
     override fun getItemCount(): Int = listGames.size
+
+    fun updateGameList(games: List<Game>) {
+        listGames = games
+        notifyDataSetChanged()
+    }
 }
