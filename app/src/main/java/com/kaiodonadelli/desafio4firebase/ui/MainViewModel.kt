@@ -18,6 +18,7 @@ class MainViewModel : ViewModel() {
         db.collection("game")
             .get()
             .addOnSuccessListener {
+                allGames.clear()
                 if (it.isEmpty) {
                     return@addOnSuccessListener
                 }
@@ -40,19 +41,5 @@ class MainViewModel : ViewModel() {
 
     fun clearFilter() {
         listGames.value = allGames
-    }
-
-    fun uploadGame(game: Game) {
-        db.collection("game")
-            .add(game.toMap())
-            .addOnSuccessListener {
-                allGames.add(game)
-                listGames.value = allGames
-
-                Log.d(MainActivity.TAG, "Adicionado! ID: ${it.id}")
-            }
-            .addOnFailureListener {
-                Log.w(MainActivity.TAG, "Erro ao adicionar objeto", it)
-            }
     }
 }

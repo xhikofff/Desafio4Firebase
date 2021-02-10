@@ -1,7 +1,7 @@
 package com.kaiodonadelli.desafio4firebase.ui
 
 import android.os.Bundle
-import android.util.Log
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.kaiodonadelli.desafio4firebase.databinding.ActivityMainBinding
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     private val mainViewModel by viewModels<MainViewModel>()
 
-    private val mainAdapter = MainAdapter(this, ::onGameClicked)
+    private val mainAdapter = MainAdapter(::onGameClicked)
     private lateinit var bind: ActivityMainBinding
 
     private var lastFilterText = ""
@@ -50,8 +50,7 @@ class MainActivity : AppCompatActivity() {
 
                     if (newText.length >= 3) {
                         filterGames(newText)
-                    }
-                    else if (newText.isEmpty()) {
+                    } else if (newText.isEmpty()) {
                         mainViewModel.clearFilter()
                     }
 
@@ -61,14 +60,19 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-
-
         mainViewModel.listGames.observe(this) {
             mainAdapter.updateGameList(it)
         }
 
-        mainViewModel.getAllGames()
+        bind.buttonAddGame.setOnClickListener {
+            startActivity(Intent(this, AddEditGameActivity::class.java))
+        }
+    }
 
+    override fun onResume() {
+        super.onResume()
+
+        mainViewModel.getAllGames()
     }
 
     private fun filterGames(filterText: String) {
@@ -76,10 +80,11 @@ class MainActivity : AppCompatActivity() {
 
         lastFilterText = filterText
         mainViewModel.filterGames(filterText)
-
     }
 
     private fun onGameClicked(game: Game) {
-        Log.d(TAG, game.toString())
+        startActivity(Intent(this, GameDetailsActivity::class.java).apply {
+            putExtra("game", game)
+        })
     }
 }

@@ -1,6 +1,5 @@
 package com.kaiodonadelli.desafio4firebase.ui
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import com.kaiodonadelli.desafio4firebase.domain.Game
 import com.squareup.picasso.Picasso
 
 class MainAdapter(
-    private val context: Context,
     private val onGameClicked: (g: Game) -> Unit,
 ) : RecyclerView.Adapter<MainAdapter.GameViewHolder>() {
 
@@ -37,10 +35,10 @@ class MainAdapter(
     override fun onBindViewHolder(holder: GameViewHolder, position: Int) {
         val game = listGames[position]
 
-        Picasso.with(context)
+        Picasso.get()
             .load(game.imageUrl)
             .centerCrop()
-            .resize(175, 100)
+            .resize(400, 400)
             .into(holder.imageViewGame)
 
         holder.textViewName.text = game.name
